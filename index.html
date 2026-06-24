@@ -595,6 +595,140 @@
             color: #999;
         }
 
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .modal-close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .avatar-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-option:hover {
+            border-color: #667eea;
+            transform: scale(1.1);
+        }
+
+        .avatar-option.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-actions .btn-cancel {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .modal-actions .btn-cancel:hover {
+            background: #efefef;
+        }
+
+        .modal-actions .btn-save {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .modal-actions .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
         /* Responsivo */
         @media (max-width: 1024px) {
             .container {
@@ -637,50 +771,6 @@
 
         .empty-state-text {
             font-size: 14px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            animation: slideIn 0.3s ease;
-        }
-
-        .modal-header {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .modal-close {
-            float: right;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
-        }
-
-        .modal-close:hover {
-            color: #333;
         }
     </style>
 </head>
@@ -734,6 +824,38 @@
         </div>
     </div>
 
+    <!-- MODAL DE EDIÇÃO DE PERFIL -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">✏️ Editar Perfil</div>
+                <button class="modal-close" onclick="closeEditProfile()">✕</button>
+            </div>
+
+            <div class="success-message" id="successMessage">✓ Perfil atualizado com sucesso!</div>
+
+            <div class="form-group">
+                <label>Selecione um Avatar</label>
+                <div class="avatar-selector" id="avatarSelector"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="editName">Nome Completo</label>
+                <input type="text" id="editName" placeholder="Digite seu nome completo">
+            </div>
+
+            <div class="form-group">
+                <label for="editUsername">Nome de Usuário</label>
+                <input type="text" id="editUsername" placeholder="Digite seu nome de usuário (sem espaços)">
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeEditProfile()">Cancelar</button>
+                <button class="btn-save" onclick="saveProfile()">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+
     <!-- APLICAÇÃO PRINCIPAL -->
     <div class="app-container" id="appContainer">
         <div class="container">
@@ -755,7 +877,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-primary" onclick="editProfile()">Editar Perfil</button>
+                    <button class="btn btn-primary" onclick="openEditProfile()">Editar Perfil</button>
                     <button class="btn btn-danger" onclick="logout()">Sair</button>
                 </div>
 
@@ -799,6 +921,10 @@
     <script>
         // ===== DADOS E ESTADO =====
         let currentUser = null;
+        let selectedAvatar = '👤';
+        
+        const avatarOptions = ['👤', '👨', '👩', '👨‍🦰', '👩‍🦰', '👨‍💼', '👩‍💼', '🧑‍🎨'];
+
         let users = {
             'joao@email.com': { password: '123456', name: 'João Silva', username: '@joaosilva', avatar: '👤' },
             'maria@email.com': { password: '123456', name: 'Maria Santos', username: '@mariasantos', avatar: '👩' },
@@ -906,16 +1032,88 @@
             alert('Recuperação de senha - Funcionalidade em desenvolvimento! 🔑');
         }
 
+        // ===== FUNÇÕES DE EDIÇÃO DE PERFIL =====
+        function openEditProfile() {
+            selectedAvatar = currentUser.avatar;
+            document.getElementById('editName').value = currentUser.name;
+            document.getElementById('editUsername').value = currentUser.username;
+            renderAvatarSelector();
+            document.getElementById('editProfileModal').classList.add('active');
+            document.getElementById('successMessage').classList.remove('show');
+        }
+
+        function closeEditProfile() {
+            document.getElementById('editProfileModal').classList.remove('active');
+        }
+
+        function renderAvatarSelector() {
+            const selector = document.getElementById('avatarSelector');
+            selector.innerHTML = '';
+
+            avatarOptions.forEach(avatar => {
+                const option = document.createElement('div');
+                option.className = 'avatar-option';
+                if (avatar === selectedAvatar) {
+                    option.classList.add('selected');
+                }
+                option.textContent = avatar;
+                option.onclick = () => selectAvatar(avatar);
+                selector.appendChild(option);
+            });
+        }
+
+        function selectAvatar(avatar) {
+            selectedAvatar = avatar;
+            renderAvatarSelector();
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('editName').value.trim();
+            const username = document.getElementById('editUsername').value.trim();
+
+            if (!name) {
+                alert('❌ O nome não pode estar vazio!');
+                return;
+            }
+
+            if (!username) {
+                alert('❌ O nome de usuário não pode estar vazio!');
+                return;
+            }
+
+            if (username.includes(' ')) {
+                alert('❌ O nome de usuário não pode conter espaços!');
+                return;
+            }
+
+            // Atualizar usuário atual
+            currentUser.name = name;
+            currentUser.username = '@' + username.replace('@', '');
+            currentUser.avatar = selectedAvatar;
+
+            // Atualizar no localStorage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            // Atualizar na interface
+            updateUserProfile();
+            renderFeed();
+
+            // Mostrar mensagem de sucesso
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+
+            // Fechar modal após 2 segundos
+            setTimeout(() => {
+                closeEditProfile();
+            }, 2000);
+        }
+
         // ===== FUNÇÕES DE PERFIL =====
         function updateUserProfile() {
             document.getElementById('profileName').textContent = currentUser.name;
             document.getElementById('profileUsername').textContent = currentUser.username;
             document.getElementById('profileAvatar').textContent = currentUser.avatar;
             document.getElementById('composerAvatar').textContent = currentUser.avatar;
-        }
-
-        function editProfile() {
-            alert('Tela de edição de perfil - Funcionalidade em desenvolvimento! ✏️');
         }
 
         // ===== FUNÇÕES DE POSTS =====
@@ -1067,6 +1265,14 @@
                 showApp();
             }
         }
+
+        // Fechar modal ao clicar fora
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('editProfileModal');
+            if (event.target === modal) {
+                closeEditProfile();
+            }
+        });
 
         // Executar ao carregar a página
         window.addEventListener('load', init);
