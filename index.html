@@ -18,6 +18,192 @@
             padding: 20px;
         }
 
+        /* ===== TELA DE LOGIN ===== */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 1000;
+        }
+
+        .login-container.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-logo {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #ccc;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .remember-forgot a {
+            color: #667eea;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* ===== TELA PRINCIPAL ===== */
+        .app-container {
+            display: none;
+        }
+
+        .app-container.active {
+            display: block;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -123,6 +309,15 @@
 
         .btn-secondary:hover {
             background: #efefef;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
         }
 
         .sidebar-menu {
@@ -315,20 +510,6 @@
             font-size: 14px;
         }
 
-        .post-image {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            max-height: 400px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-        }
-
         .post-actions {
             display: flex;
             justify-content: space-around;
@@ -437,6 +618,10 @@
             .sidebar-right {
                 display: none;
             }
+
+            .login-box {
+                padding: 30px 20px;
+            }
         }
 
         .empty-state {
@@ -453,70 +638,174 @@
         .empty-state-text {
             font-size: 14px;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar Esquerda -->
-        <div class="sidebar-left">
-            <div class="profile-card">
-                <div class="profile-avatar">👤</div>
-                <div class="profile-name">João Silva</div>
-                <div class="profile-username">@joaosilva</div>
-                
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="stat-number" id="followersCount">1.2K</div>
-                        <div class="stat-label">Seguidores</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number" id="followingCount">342</div>
-                        <div class="stat-label">Seguindo</div>
-                    </div>
+    <!-- TELA DE LOGIN -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="login-logo">👥</div>
+                <div class="login-title">Minha Rede Social</div>
+                <div class="login-subtitle">Conecte-se com amigos</div>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email ou Usuário</label>
+                    <input 
+                        type="text" 
+                        id="loginEmail" 
+                        placeholder="Digite seu email ou usuário" 
+                        required
+                    >
                 </div>
 
-                <button class="btn btn-primary" onclick="editProfile()">Editar Perfil</button>
-                <button class="btn btn-secondary" onclick="logout()">Sair</button>
-            </div>
+                <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <input 
+                        type="password" 
+                        id="loginPassword" 
+                        placeholder="Digite sua senha" 
+                        required
+                    >
+                </div>
 
-            <div class="sidebar-menu">
-                <div class="menu-item active" onclick="switchTab('feed')">🏠 Início</div>
-                <div class="menu-item" onclick="switchTab('explore')">🔍 Explorar</div>
-                <div class="menu-item" onclick="switchTab('messages')">💬 Mensagens</div>
-                <div class="menu-item" onclick="switchTab('bookmarks')">🔖 Salvos</div>
-                <div class="menu-item" onclick="switchTab('notifications')">🔔 Notificações</div>
+                <div class="remember-forgot">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe" style="margin: 0; cursor: pointer;">Lembrar-me</label>
+                    </div>
+                    <a onclick="showForgotPassword()">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit" class="login-btn">Entrar</button>
+            </form>
+
+            <div class="signup-link">
+                Não tem conta? <a onclick="showSignup()">Cadastre-se</a>
             </div>
         </div>
+    </div>
 
-        <!-- Feed Principal -->
-        <div class="feed">
-            <!-- Compositor de Posts -->
-            <div class="post-composer">
-                <div class="composer-header">
-                    <div class="composer-avatar">👤</div>
-                    <div class="composer-input-area">
-                        <textarea class="composer-input" id="postInput" placeholder="No que você está pensando?"></textarea>
-                        <div class="composer-actions">
-                            <button class="btn-cancel" onclick="clearPost()">Cancelar</button>
-                            <button class="btn-post" onclick="publishPost()">Publicar</button>
+    <!-- APLICAÇÃO PRINCIPAL -->
+    <div class="app-container" id="appContainer">
+        <div class="container">
+            <!-- Sidebar Esquerda -->
+            <div class="sidebar-left">
+                <div class="profile-card">
+                    <div class="profile-avatar" id="profileAvatar">👤</div>
+                    <div class="profile-name" id="profileName">João Silva</div>
+                    <div class="profile-username" id="profileUsername">@joaosilva</div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <div class="stat-number" id="followersCount">1.2K</div>
+                            <div class="stat-label">Seguidores</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="followingCount">342</div>
+                            <div class="stat-label">Seguindo</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="editProfile()">Editar Perfil</button>
+                    <button class="btn btn-danger" onclick="logout()">Sair</button>
+                </div>
+
+                <div class="sidebar-menu">
+                    <div class="menu-item active" onclick="switchTab('feed')">🏠 Início</div>
+                    <div class="menu-item" onclick="switchTab('explore')">🔍 Explorar</div>
+                    <div class="menu-item" onclick="switchTab('messages')">💬 Mensagens</div>
+                    <div class="menu-item" onclick="switchTab('bookmarks')">🔖 Salvos</div>
+                    <div class="menu-item" onclick="switchTab('notifications')">🔔 Notificações</div>
+                </div>
+            </div>
+
+            <!-- Feed Principal -->
+            <div class="feed">
+                <!-- Compositor de Posts -->
+                <div class="post-composer">
+                    <div class="composer-header">
+                        <div class="composer-avatar" id="composerAvatar">👤</div>
+                        <div class="composer-input-area">
+                            <textarea class="composer-input" id="postInput" placeholder="No que você está pensando?"></textarea>
+                            <div class="composer-actions">
+                                <button type="button" class="btn-cancel" onclick="clearPost()">Cancelar</button>
+                                <button type="button" class="btn-post" onclick="publishPost()">Publicar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Feed de Posts -->
+                <div id="feedContainer"></div>
             </div>
 
-            <!-- Feed de Posts -->
-            <div id="feedContainer"></div>
-        </div>
-
-        <!-- Sidebar Direita -->
-        <div class="sidebar-right">
-            <div class="trending-title">🔥 Tendências</div>
-            <div id="trendingContainer"></div>
+            <!-- Sidebar Direita -->
+            <div class="sidebar-right">
+                <div class="trending-title">🔥 Tendências</div>
+                <div id="trendingContainer"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Dados iniciais
+        // ===== DADOS E ESTADO =====
+        let currentUser = null;
+        let users = {
+            'joao@email.com': { password: '123456', name: 'João Silva', username: '@joaosilva', avatar: '👤' },
+            'maria@email.com': { password: '123456', name: 'Maria Santos', username: '@mariasantos', avatar: '👩' },
+            'pedro@email.com': { password: '123456', name: 'Pedro Costa', username: '@pedrocosta', avatar: '👨' },
+            'ana@email.com': { password: '123456', name: 'Ana Silva', username: '@anasilva', avatar: '👩‍🦰' }
+        };
+
         let posts = [
             {
                 id: 1,
@@ -563,7 +852,73 @@
             { category: 'Notícias', topic: '#Brasil', count: '567.3K posts' }
         ];
 
-        // Renderizar feed
+        // ===== FUNÇÕES DE AUTENTICAÇÃO =====
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Validar credenciais
+            if (users[email] && users[email].password === password) {
+                currentUser = {
+                    email: email,
+                    ...users[email]
+                };
+
+                // Salvar sessão no localStorage
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+                // Mostrar app
+                showApp();
+                errorMessage.classList.remove('show');
+            } else {
+                errorMessage.textContent = '❌ Email/usuário ou senha incorretos!';
+                errorMessage.classList.add('show');
+            }
+        }
+
+        function showApp() {
+            document.getElementById('loginContainer').classList.add('hidden');
+            document.getElementById('appContainer').classList.add('active');
+            updateUserProfile();
+            renderFeed();
+            renderTrending();
+        }
+
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                document.getElementById('appContainer').classList.remove('active');
+                document.getElementById('loginContainer').classList.remove('hidden');
+                document.getElementById('loginForm').reset();
+                document.getElementById('errorMessage').classList.remove('show');
+            }
+        }
+
+        function showSignup() {
+            alert('Tela de cadastro - Funcionalidade em desenvolvimento! 📝');
+        }
+
+        function showForgotPassword() {
+            alert('Recuperação de senha - Funcionalidade em desenvolvimento! 🔑');
+        }
+
+        // ===== FUNÇÕES DE PERFIL =====
+        function updateUserProfile() {
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileUsername').textContent = currentUser.username;
+            document.getElementById('profileAvatar').textContent = currentUser.avatar;
+            document.getElementById('composerAvatar').textContent = currentUser.avatar;
+        }
+
+        function editProfile() {
+            alert('Tela de edição de perfil - Funcionalidade em desenvolvimento! ✏️');
+        }
+
+        // ===== FUNÇÕES DE POSTS =====
         function renderFeed() {
             const feedContainer = document.getElementById('feedContainer');
             feedContainer.innerHTML = '';
@@ -594,7 +949,7 @@
                     </div>
                     <div class="post-content">${post.content}</div>
                     <div class="post-actions">
-                        <div class="post-action" onclick="toggleLike(${post.id})">
+                        <div class="post-action ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
                             <span class="post-action-icon">${post.liked ? '❤️' : '🤍'}</span>
                             <span>${post.likes}</span>
                         </div>
@@ -612,7 +967,6 @@
             });
         }
 
-        // Publicar novo post
         function publishPost() {
             const postInput = document.getElementById('postInput');
             const content = postInput.value.trim();
@@ -624,9 +978,9 @@
 
             const newPost = {
                 id: posts.length + 1,
-                author: 'João Silva',
-                username: '@joaosilva',
-                avatar: '👤',
+                author: currentUser.name,
+                username: currentUser.username,
+                avatar: currentUser.avatar,
                 time: 'agora',
                 content: content,
                 likes: 0,
@@ -641,12 +995,10 @@
             alert('Post publicado com sucesso! 🎉');
         }
 
-        // Limpar input
         function clearPost() {
             document.getElementById('postInput').value = '';
         }
 
-        // Toggle like
         function toggleLike(postId) {
             const post = posts.find(p => p.id === postId);
             if (post) {
@@ -656,17 +1008,15 @@
             }
         }
 
-        // Abrir comentários
         function openComments(postId) {
             alert(`Comentários do post ${postId} - Funcionalidade em desenvolvimento! 💬`);
         }
 
-        // Compartilhar post
         function sharePost(postId) {
             alert(`Post ${postId} compartilhado! 🔄`);
         }
 
-        // Renderizar tendências
+        // ===== FUNÇÕES DE TENDÊNCIAS =====
         function renderTrending() {
             const trendingContainer = document.getElementById('trendingContainer');
             trendingContainer.innerHTML = '';
@@ -683,7 +1033,7 @@
             });
         }
 
-        // Trocar abas
+        // ===== FUNÇÕES DE NAVEGAÇÃO =====
         function switchTab(tab) {
             const menuItems = document.querySelectorAll('.menu-item');
             menuItems.forEach(item => item.classList.remove('active'));
@@ -708,22 +1058,14 @@
             }
         }
 
-        // Editar perfil
-        function editProfile() {
-            alert('Tela de edição de perfil - Funcionalidade em desenvolvimento! ✏️');
-        }
-
-        // Logout
-        function logout() {
-            if (confirm('Tem certeza que deseja sair?')) {
-                alert('Você foi desconectado! Até logo! 👋');
-            }
-        }
-
-        // Inicializar
+        // ===== INICIALIZAÇÃO =====
         function init() {
-            renderFeed();
-            renderTrending();
+            // Verificar se há usuário logado
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showApp();
+            }
         }
 
         // Executar ao carregar a página
